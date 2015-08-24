@@ -1,6 +1,7 @@
 import pygame
 import random
 from player import *
+from coin import *
 
 NEGRO    = (0, 0, 0)
 BLANCO    = (255, 255, 255)
@@ -15,6 +16,7 @@ class Juego(object):
 	pantalla_principal = True
 	puntos = 0
 	imagen_fondo = None 
+	moneda = None
 
 
 
@@ -25,7 +27,11 @@ class Juego(object):
 		self.pantalla_principal = True
 
 		self.jugador = Player()
+		self.moneda = Coin()
+
+
 		self.lista_todos.add(self.jugador)
+		self.lista_todos.add(self.moneda)
 		self.imagen_fondo = pygame.image.load('art/start_screen.png')
 
 	def event_process(self):
@@ -33,11 +39,14 @@ class Juego(object):
 			if evento.type == pygame.QUIT:
 				return True
 			if evento.type == pygame.KEYDOWN:
+				
 				if evento.key == pygame.K_RETURN:  
 					if self.game_over==False:
 						print "enter"
-						self.pantalla_principal = False
+						
 						self.__init__()
+						self.pantalla_principal = False
+						self.moneda.aparecer()
 		return False
 
 
@@ -55,9 +64,10 @@ class Juego(object):
 		if self.pantalla_principal == True:
 			pantalla.blit(self.imagen_fondo,(0,0))
 
-		if  self.game_over==False and self.pantalla_principal == False:
+		if  self.pantalla_principal == False:
 			pantalla.fill(BLANCO)
 			self.lista_todos.draw(pantalla)
+   
 
 		pygame.display.flip()
 
