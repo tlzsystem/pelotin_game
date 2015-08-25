@@ -2,6 +2,7 @@ import pygame
 import random
 from player import *
 from coin import *
+from enemy import *
 
 NEGRO    = (0, 0, 0)
 BLANCO    = (255, 255, 255)
@@ -11,12 +12,16 @@ class Juego(object):
 
 	jugador = None
 	lista_todos = None
+	lista_coin = None
+	lista_enemigos = None
 
 	game_over = False
 	pantalla_principal = True
 	puntos = 0
 	imagen_fondo = None 
+	imagen_gameover = None
 	moneda = None
+	enemigo = None
 
 
 
@@ -24,29 +29,36 @@ class Juego(object):
 		self.puntos = 0
 		self.game_over = False
 		self.lista_todos= pygame.sprite.Group()
+		self.lista_coin = pygame.sprite.Group()
+		self.lista_enemigos = pygame.sprite.Group()
 		self.pantalla_principal = True
 
 		self.jugador = Player()
 		self.moneda = Coin()
+		self.enemigo = Enemy()
 
 
 		self.lista_todos.add(self.jugador)
 		self.lista_todos.add(self.moneda)
+		self.lista_todos.add(self.enemigo)
+		self.lista_coin.add(self.moneda)
+		self.lista_enemigos.add(self.enemigo)
+
 		self.imagen_fondo = pygame.image.load('art/start_screen.png')
+		self.imagen_gameover = pygame.image.load('art/game_over.png')
+
 
 	def event_process(self):
 		for evento in pygame.event.get():
 			if evento.type == pygame.QUIT:
 				return True
 			if evento.type == pygame.KEYDOWN:
-				
 				if evento.key == pygame.K_RETURN:  
 					if self.game_over==False:
-						print "enter"
-						
 						self.__init__()
 						self.pantalla_principal = False
 						self.moneda.aparecer()
+						self.enemigo.aparecer()
 		return False
 
 
@@ -54,20 +66,32 @@ class Juego(object):
 
 		if not self.game_over:
 			self.lista_todos.update()
+			self.enemigo.mover()
+			impacto = pygame.sprite.spritecollide(self.jugador,self.lista_coin,False)
+			for self.moneda in impacto:
+				self.puntos = self.puntos +1
+				print self.puntos 
+				self.moneda.aparecer()
+			impacto_enemigo = pygame.sprite.spritecollide(self.jugador, self.lista_enemigos, True)
+			for self.enemigo in impacto_enemigo:
+				self.game_over = True
+
+			
+
 
 	def display_frame(self,pantalla):
+
 		pantalla.fill(BLANCO)
 
-		if self.game_over:
-			print "game over"
-
+		if self.game_over == True:
+			pantalla.blit(self.imagen_fondo,(0,0))
+			
 		if self.pantalla_principal == True:
 			pantalla.blit(self.imagen_fondo,(0,0))
 
 		if  self.pantalla_principal == False:
 			pantalla.fill(BLANCO)
 			self.lista_todos.draw(pantalla)
-   
 
 		pygame.display.flip()
 
