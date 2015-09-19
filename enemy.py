@@ -1,12 +1,13 @@
 import pygame
+import random
 
 BLANCO    = (255, 255, 255)
 NEGRO    = (0, 0, 0)
 
 class Enemy(pygame.sprite.Sprite):
 
-	rect_x = 50
-	rect_y = 50
+	rect_x = 1
+	rect_y = random.randint(50,500) 
 
 	rect_cambio_x = 20
 	rect_cambio_y = 20
