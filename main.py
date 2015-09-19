@@ -22,6 +22,7 @@ class Juego(object):
 	imagen_gameover = None
 	moneda = None
 	enemigo = None
+	fuente = None
 
 
 
@@ -46,7 +47,7 @@ class Juego(object):
 
 		self.imagen_fondo = pygame.image.load('art/start_screen.png')
 		self.imagen_gameover = pygame.image.load('art/game_over.png')
-
+		self.fuente = pygame.font.Font(None,25)
 
 	def event_process(self):
 		for evento in pygame.event.get():
@@ -79,19 +80,25 @@ class Juego(object):
 			
 
 
-	def display_frame(self,pantalla):
+	def display_frame(self,panta):
 
-		pantalla.fill(BLANCO)
+		panta.fill(BLANCO)
 
-		if self.game_over == True:
-			pantalla.blit(self.imagen_fondo,(0,0))
-			
+
+		
 		if self.pantalla_principal == True:
-			pantalla.blit(self.imagen_fondo,(0,0))
+			panta.blit(self.imagen_fondo,(0,0))
 
 		if  self.pantalla_principal == False:
-			pantalla.fill(BLANCO)
-			self.lista_todos.draw(pantalla)
+			panta.fill(BLANCO)
+			self.lista_todos.draw(panta)
+			texto_salida = str(self.puntos)+" Puntos"
+			texto = self.fuente.render(texto_salida,True,NEGRO)
+			panta.blit(texto,[10,50])
+
+
+		if self.game_over == True:
+			panta.blit(self.imagen_gameover,(0,0))
 
 		pygame.display.flip()
 
