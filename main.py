@@ -23,6 +23,8 @@ class Juego(object):
 	moneda = None
 	enemigo = None
 	fuente = None
+	sonido_comer = None
+	sonido_morir = None
 
 
 
@@ -48,6 +50,10 @@ class Juego(object):
 		self.imagen_fondo = pygame.image.load('art/start_screen.png')
 		self.imagen_gameover = pygame.image.load('art/game_over.png')
 		self.fuente = pygame.font.Font(None,25)
+		self.sonido_comer = pygame.mixer.Sound("art/comer.wav")
+		self.sonido_morir = pygame.mixer.Sound("art/sonido_morir.wav")
+
+
 
 	def event_process(self):
 		for evento in pygame.event.get():
@@ -80,11 +86,13 @@ class Juego(object):
 			impacto = pygame.sprite.spritecollide(self.jugador,self.lista_coin,False)
 			for self.moneda in impacto:
 				self.puntos = self.puntos +1
-				print self.puntos 
+				self.sonido_comer.play()
 				self.moneda.aparecer()
 			impacto_enemigo = pygame.sprite.spritecollide(self.jugador, self.lista_enemigos, True)
 			for self.enemigo in impacto_enemigo:
+				self.sonido_morir.play()
 				self.game_over = True
+
 
 			
 
