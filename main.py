@@ -51,7 +51,7 @@ class Juego(object):
 		self.imagen_gameover = pygame.image.load('art/game_over.png')
 		self.fuente = pygame.font.Font(None,25)
 		self.sonido_comer = pygame.mixer.Sound("art/comer.wav")
-		self.sonido_morir = pygame.mixer.Sound("art/sonido_morir.wav")
+		self.sonido_morir = pygame.mixer.Sound("art/morir.wav")
 
 
 
