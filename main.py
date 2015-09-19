@@ -60,6 +60,15 @@ class Juego(object):
 						self.pantalla_principal = False
 						self.moneda.aparecer()
 						self.enemigo.aparecer()
+
+					if self.game_over ==True:
+						self.__init__()
+						self.pantalla_principal = False
+						self.moneda.aparecer()
+						self.enemigo.aparecer()
+						self.game_over=False
+						    
+
 		return False
 
 
@@ -99,7 +108,9 @@ class Juego(object):
 
 		if self.game_over == True:
 			panta.blit(self.imagen_gameover,(0,0))
-
+			texto_salida = "Lo siento, tus puntos fueron: "+str(self.puntos)+" pts"
+			texto = self.fuente.render(texto_salida,True,NEGRO)
+			panta.blit(texto,[10,50])
 		pygame.display.flip()
 
 
