@@ -8,16 +8,15 @@ Mueve el mouse para esquivar los obstaculos y ganar puntos al capturar las moned
 Simple Python Pygame Game
 Get the coins.
 
+---
 
+#### Credits ####
 
-
-Credits.
-
-Programmer
-Samuel Toloza
-Artwork
-Simon Billeke
-Sounds
-bfxr.net
+Programmer   
+Samuel Toloza   
+Artwork    
+Simon Billeke    
+Sounds    
+bfxr.net   
 
 
