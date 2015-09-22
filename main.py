@@ -47,8 +47,8 @@ class Juego(object):
 		self.lista_coin.add(self.moneda)
 		self.lista_enemigos.add(self.enemigo)
 
-		self.imagen_fondo = pygame.image.load('art/start_screen.png')
-		self.imagen_gameover = pygame.image.load('art/game_over.png')
+		self.imagen_fondo = pygame.image.load('art/start_screen.jpg')
+		self.imagen_gameover = pygame.image.load('art/game_over.jpg')
 		self.fuente = pygame.font.Font(None,25)
 		self.sonido_comer = pygame.mixer.Sound("art/comer.wav")
 		self.sonido_morir = pygame.mixer.Sound("art/morir.wav")
@@ -80,7 +80,7 @@ class Juego(object):
 
 	def game_engine(self):
 
-		if not self.game_over:
+		if not self.game_over and self.pantalla_principal==False:
 			self.lista_todos.update()
 			self.enemigo.mover()
 			impacto = pygame.sprite.spritecollide(self.jugador,self.lista_coin,False)
@@ -109,16 +109,16 @@ class Juego(object):
 		if  self.pantalla_principal == False:
 			panta.fill(BLANCO)
 			self.lista_todos.draw(panta)
-			texto_salida = str(self.puntos)+" Puntos"
+			texto_salida = str(self.puntos)+" Points"
 			texto = self.fuente.render(texto_salida,True,NEGRO)
-			panta.blit(texto,[10,50])
+			panta.blit(texto,[10,500])
 
 
 		if self.game_over == True:
 			panta.blit(self.imagen_gameover,(0,0))
-			texto_salida = "Lo siento, tus puntos fueron: "+str(self.puntos)+" pts"
+			texto_salida = "You lose :( .  Yoy score "+str(self.puntos)+" point"
 			texto = self.fuente.render(texto_salida,True,NEGRO)
-			panta.blit(texto,[10,50])
+			panta.blit(texto,[10,500])
 		pygame.display.flip()
 
 
