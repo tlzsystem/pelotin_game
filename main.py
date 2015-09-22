@@ -60,7 +60,7 @@ class Juego(object):
 
 		self.imagen_fondo = pygame.image.load('art/start_screen.jpg')
 		self.imagen_gameover = pygame.image.load('art/game_over.jpg')
-		self.fuente = pygame.font.Font(None,25)
+		self.fuente = pygame.font.SysFont("comicsansms",25)
 		self.sonido_comer = pygame.mixer.Sound("art/comer.wav")
 		self.sonido_morir = pygame.mixer.Sound("art/morir.wav")
 
